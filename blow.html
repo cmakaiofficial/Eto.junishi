@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+<title>Eto • Jūnishi | Japanese Zodiac</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+:root{
+  --red:#9d1c27;
+  --dark:#241510;
+  --gold:#d9a441;
+  --cream:#fff9ed;
+  --paper:#fffdf8;
+  --line:#ead9bb;
+  --text:#2b1b13;
+  --muted:#806b58;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Noto Sans JP",
+    sans-serif;
+  background:
+    radial-gradient(
+      circle at top,
+      #fff1c9 0,
+      #ead1a3 42%,
+      #251914 100%
+    );
+  color:var(--text);
+}
+
+.app{
+  width:100%;
+  max-width:540px;
+  margin:auto;
+  min-height:100vh;
+  background:rgba(255,250,239,.96);
+  box-shadow:0 0 45px rgba(0,0,0,.28);
+}
+
+/* ================= HEADER ================= */
+
+header{
+  position:relative;
+  overflow:hidden;
+  text-align:center;
+  color:#fff8e9;
+  padding:28px 18px 25px;
+  background:
+    linear-gradient(145deg,#7d101b,#b12630);
+}
+
+header:before{
+  content:"十二支";
+  position:absolute;
+  right:-10px;
+  top:-28px;
+  font-size:115px;
+  opacity:.08;
+  font-weight:900;
+}
+
+header:after{
+  content:"干支";
+  position:absolute;
+  left:-12px;
+  bottom:-30px;
+  font-size:110px;
+  opacity:.06;
+  font-weight:900;
+}
+
+.logo{
+  position:relative;
+  z-index:2;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:4px;
+  color:#ffd875;
+}
+
+h1{
+  position:relative;
+  z-index:2;
+  font-family:Georgia,"Times New Roman",serif;
+  margin:8px 0 4px;
+  font-size:36px;
+}
+
+.subtitle{
+  position:relative;
+  z-index:2;
+  font-size:14px;
+  opacity:.9;
+}
+
+/* ================= LANGUAGE ================= */
+
+.langBox{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  padding:15px 18px 5px;
+}
+
+.langBtn{
+  width:auto;
+  min-width:110px;
+  margin:0;
+  padding:10px 16px;
+  border-radius:30px;
+  background:#f0e1c7;
+  color:#5d3925;
+  border:1px solid #dcc49b;
+  font-size:14px;
+  cursor:pointer;
+}
+
+.langBtn.active{
+  background:var(--red);
+  color:white;
+  border-color:var(--red);
+}
+
+/* ================= CONTENT ================= */
+
+section{
+  padding:18px;
+}
+
+.card{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:20px;
+  box-shadow:0 8px 25px rgba(80,45,15,.08);
+}
+
+label{
+  display:block;
+  font-weight:800;
+  margin-bottom:8px;
+}
+
+.inputHint{
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:10px;
+}
+
+input{
+  width:100%;
+  padding:16px;
+  border-radius:14px;
+  border:2px solid var(--line);
+  outline:none;
+  background:white;
+  font-size:18px;
+  color:var(--text);
+}
+
+input:focus{
+  border-color:var(--red);
+}
+
+.mainBtn{
+  width:100%;
+  border:0;
+  margin-top:12px;
+  padding:16px;
+  border-radius:14px;
+  background:var(--red);
+  color:white;
+  font-size:17px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 5px 12px rgba(120,20,25,.2);
+}
+
+.mainBtn:active{
+  transform:scale(.98);
+}
+
+/* ================= RESULT ================= */
+
+.result{
+  display:none;
+  margin-top:18px;
+  animation:show .45s ease;
+}
+
+@keyframes show{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.hero{
+  text-align:center;
+  border-radius:23px;
+  padding:25px 15px;
+  background:
+    radial-gradient(
+      circle at center,
+      #fffdf0,
+      #f3dfb4
+    );
+  border:1px solid #e2c68e;
+}
+
+.heroEmoji{
+  font-size:85px;
+  line-height:1;
+}
+
+.heroKanji{
+  font-size:39px;
+  font-weight:900;
+  margin-top:8px;
+}
+
+.heroName{
+  font-size:27px;
+  font-weight:900;
+  margin-top:3px;
+}
+
+.heroMeaning{
+  margin-top:6px;
+  color:#785c43;
+}
+
+.birthYear{
+  margin-top:8px;
+  font-size:13px;
+  color:#8c7258;
+}
+
+.infoGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:14px;
+}
+
+.info{
+  background:#fff8eb;
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:14px;
+}
+
+.info small{
+  display:block;
+  color:#8c725b;
+  font-size:12px;
+  margin-bottom:5px;
+}
+
+.info strong{
+  font-size:15px;
+}
+
+/* ================= TRAITS ================= */
+
+.innerCard{
+  margin-top:14px;
+}
+
+h2{
+  font-family:Georgia,"Times New Roman",serif;
+  margin:0 0 15px;
+  font-size:22px;
+}
+
+.traits{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.trait{
+  background:#f2e0bb;
+  padding:8px 12px;
+  border-radius:30px;
+  font-size:13px;
+  font-weight:800;
+}
+
+/* ================= ZODIAC GRID ================= */
+
+.sectionTitle{
+  margin:5px 0 4px;
+  font-family:Georgia,serif;
+  font-size:24px;
+}
+
+.sectionSub{
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:15px;
+}
+
+.zodiacGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.zodiac{
+  text-align:center;
+  padding:14px 5px;
+  border-radius:17px;
+  background:white;
+  border:1px solid var(--line);
+  cursor:pointer;
+  transition:.2s;
+}
+
+.zodiac:hover{
+  transform:translateY(-2px);
+}
+
+.zodiac:active{
+  transform:scale(.96);
+}
+
+.zodiac.active{
+  background:var(--red);
+  color:white;
+  border-color:var(--red);
+  box-shadow:0 5px 15px rgba(120,20,25,.2);
+}
+
+.zEmoji{
+  font-size:34px;
+}
+
+.zName{
+  font-size:14px;
+  font-weight:900;
+  margin-top:5px;
+}
+
+.zJapanese{
+  font-size:13px;
+  margin-top:2px;
+}
+
+.zReading{
+  font-size:10px;
+  opacity:.65;
+  margin-top:2px;
+}
+
+/* ================= FACT ================= */
+
+.fact{
+  border-radius:21px;
+  padding:20px;
+  background:#231710;
+  color:#fff2d8;
+  line-height:1.65;
+  font-size:14px;
+}
+
+.factTitle{
+  color:#ffd66d;
+  font-weight:900;
+  font-size:18px;
+  margin-bottom:8px;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+  text-align:center;
+  padding:25px 18px 35px;
+  color:#8b735c;
+  font-size:12px;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:370px){
+
+  h1{
+    font-size:30px;
+  }
+
+  .zodiacGrid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .heroEmoji{
+    font-size:72px;
+  }
+
+  .infoGrid{
+    grid-template-columns:1fr;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+
+  <div class="logo" id="logo">
+    JAPANESE ZODIAC
+  </div>
+
+  <h1 id="title">
+    Eto • Jūnishi
+  </h1>
+
+  <div class="subtitle" id="subtitle">
+    干支 • 十二支 — Discover your Japanese zodiac
+  </div>
+
+</header>
+
+<!-- LANGUAGE -->
+
+<div class="langBox">
+
+  <button
+    class="langBtn active"
+    id="enBtn"
+    onclick="setLanguage('en')">
+    🇬🇧 English
+  </button>
+
+  <button
+    class="langBtn"
+    id="jaBtn"
+    onclick="setLanguage('ja')">
+    🇯🇵 日本語
+  </button>
+
+</div>
+
+<!-- MAIN -->
+
+<section>
+
+<div class="card">
+
+  <label id="yearLabel">
+    Enter your birth year
+  </label>
+
+  <div class="inputHint" id="yearHint">
+    For example: 2003
+  </div>
+
+  <input
+    id="year"
+    type="number"
+    inputmode="numeric"
+    placeholder="2003"
+    min="1"
+    max="9999"
+  >
+
+  <button
+    class="mainBtn"
+    onclick="calculate()"
+    id="calculateBtn">
+    Discover My Eto
+  </button>
+
+  <!-- RESULT -->
+
+  <div class="result" id="result">
+
+    <div class="hero">
+
+      <div class="heroEmoji" id="heroEmoji">
+        🐉
+      </div>
+
+      <div class="heroKanji" id="heroKanji">
+        辰
+      </div>
+
+      <div class="heroName" id="heroName">
+        Dragon
+      </div>
+
+      <div class="heroMeaning" id="heroMeaning">
+        Powerful & ambitious
+      </div>
+
+      <div class="birthYear" id="birthYear"></div>
+
+    </div>
+
+    <div class="infoGrid">
+
+      <div class="info">
+        <small id="labelJapanese">Japanese</small>
+        <strong id="jpName"></strong>
+      </div>
+
+      <div class="info">
+        <small id="labelPosition">Position</small>
+        <strong id="position"></strong>
+      </div>
+
+      <div class="info">
+        <small id="labelElement">Element</small>
+        <strong id="element"></strong>
+      </div>
+
+      <div class="info">
+        <small id="labelYinYang">Yin / Yang</small>
+        <strong id="yinYang"></strong>
+      </div>
+
+      <div class="info">
+        <small id="labelLuckyColor">Lucky Color</small>
+        <strong id="luckyColor"></strong>
+      </div>
+
+      <div class="info">
+        <small id="labelLuckyNumber">Lucky Number</small>
+        <strong id="luckyNumber"></strong>
+      </div>
+
+    </div>
+
+    <div class="card innerCard">
+
+      <h2 id="personalityTitle">
+        Personality
+      </h2>
+
+      <div
+        class="traits"
+        id="traits">
+      </div>
+
+    </div>
+
+    <div class="card innerCard">
+
+      <h2 id="aboutTitle">
+        About Your Sign
+      </h2>
+
+      <p id="description"></p>
+
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+<!-- ALL ZODIAC -->
+
+<section>
+
+  <h2
+    class="sectionTitle"
+    id="zodiacTitle">
+    十二支 • The 12 Jūnishi
+  </h2>
+
+  <div
+    class="sectionSub"
+    id="zodiacSub">
+    Tap an animal to explore its meaning.
+  </div>
+
+  <div
+    class="zodiacGrid"
+    id="zodiacGrid">
+  </div>
+
+</section>
+
+<!-- FACT -->
+
+<section>
+
+  <div class="fact">
+
+    <div
+      class="factTitle"
+      id="factTitle">
+      Did you know?
+    </div>
+
+    <div id="factText">
+
+      The Japanese zodiac is called
+      <b>Jūnishi (十二支)</b>, meaning
+      "Twelve Earthly Branches."
+
+      <br><br>
+
+      Each year is associated with one of
+      12 animals in a repeating cycle.
+
+      <br><br>
+
+      The broader Japanese term
+      <b>Eto (干支)</b> can refer to the
+      traditional 60-year cycle combining
+      the 12 animals with the 5 elements.
+
+    </div>
+
+  </div>
+
+</section>
+
+<footer id="footer">
+  Eto • Jūnishi<br>
+  Japanese Zodiac App
+</footer>
+
+</div>
+
+<script>
+
+/* =========================================================
+   ZODIAC DATA
+========================================================= */
+
+const zodiac = [
+
+{
+  animal:"Rat",
+  ja:"ねずみ",
+  kanji:"子",
+  reading:"Nezumi",
+  emoji:"🐀",
+
+  meaning:{
+    en:"Quick-minded & adaptable",
+    ja:"頭の回転が速く、適応力がある"
+  },
+
+  element:{
+    en:"Wood",
+    ja:"木"
+  },
+
+  yin:{
+    en:"Yang",
+    ja:"陽"
+  },
+
+  color:{
+    en:"Blue",
+    ja:"青"
+  },
+
+  number:"2, 3",
+
+  traits:{
+    en:["Clever","Adaptable","Curious","Resourceful"],
+    ja:["賢い","適応力","好奇心","機転"]
+  },
+
+  description:{
+    en:"The Rat is traditionally associated with intelligence, observation, adaptability and resourcefulness.",
+    ja:"ねずみは、知性、観察力、適応力、機転の良さを象徴すると伝統的に考えられています。"
+  }
+},
+
+{
+  animal:"Ox",
+  ja:"うし",
+  kanji:"丑",
+  reading:"Ushi",
+  emoji:"🐂",
+
+  meaning:{
+    en:"Patient & dependable",
+    ja:"忍耐強く、信頼できる"
+  },
+
+  element:{
+    en:"Earth",
+    ja:"土"
+  },
+
+  yin:{
+    en:"Yin",
+    ja:"陰"
+  },
+
+  color:{
+    en:"Green",
+    ja:"緑"
+  },
+
+  number:"1, 9",
+
+  traits:{
+    en:["Patient","Reliable","Strong","Hardworking"],
+    ja:["忍耐強い","信頼","強い","勤勉"]
+  },
+
+  description:{
+    en:"The Ox represents patience, determination, strength and steady effort.",
+    ja:"うしは、忍耐、努力、強さ、着実さを象徴すると考えられています。"
+  }
+},
+
+{
+  animal:"Tiger",
+  ja:"とら",
+  kanji:"寅",
+  reading:"Tora",
+  emoji:"🐅",
+
+  meaning:{
+    en:"Brave & powerful",
+    ja:"勇敢で力強い"
+  },
+
+  element:{
+    en:"Wood",
+    ja:"木"
+  },
+
+  yin:{
+    en:"Yang",
+    ja:"陽"
+  },
+
+  color:{
+    en:"Orange",
+    ja:"オレンジ"
+  },
+
+  number:"1, 3",
+
+  traits:{
+    en:["Brave","Confident","Passionate","Independent"],
+    ja:["勇敢","自信","情熱","独立心"]
+  },
+
+  description:{
+    en:"The Tiger symbolizes courage, confidence, passion and independence.",
+    ja:"とらは、勇気、自信、情熱、独立心を象徴すると考えられています。"
+  }
+},
+
+{
+  animal:"Rabbit",
+  ja:"うさぎ",
+  kanji:"卯",
+  reading:"Usagi",
+  emoji:"🐇",
+
+  meaning:{
+    en:"Gentle & elegant",
+    ja:"優しく上品"
+  },
+
+  element:{
+    en:"Wood",
+    ja:"木"
+  },
+
+  yin:{
+    en:"Yin",
+    ja:"陰"
+  },
+
+  color:{
+    en:"Pink",
+    ja:"ピンク"
+  },
+
+  number:"3, 4",
+
+  traits:{
+    en:["Gentle","Elegant","Kind","Creative"],
+    ja:["優しい","上品","親切","創造的"]
+  },
+
+  description:{
+    en:"The Rabbit is traditionally associated with gentleness, sensitivity, diplomacy and creativity.",
+    ja:"うさぎは、優しさ、繊細さ、調和、創造性と結びつけて考えられています。"
+  }
+},
+
+{
+  animal:"Dragon",
+  ja:"たつ",
+  kanji:"辰",
+  reading:"Tatsu",
+  emoji:"🐉",
+
+  meaning:{
+    en:"Powerful & ambitious",
+    ja:"力強く、野心的"
+  },
+
+  element:{
+    en:"Earth",
+    ja:"土"
+  },
+
+  yin:{
+    en:"Yang",
+    ja:"陽"
+  },
+
+  color:{
+    en:"Gold",
+    ja:"金色"
+  },
+
+  number:"1, 6, 7",
+
+  traits:{
+    en:["Ambitious","Energetic","Charismatic","Bold"],
+    ja:["野心的","活発","魅力的","大胆"]
+  },
+
+  description:{
+    en:"The Dragon is the only mythical creature among the twelve animals and traditionally symbolizes power, ambition and strong presence.",
+    ja:"たつは十二支の中で唯一の想像上の生き物で、力、野心、存在感を象徴するとされています。"
+  }
+},
+
+{
+  animal:"Snake",
+  ja:"へび",
+  kanji:"巳",
+  reading:"Hebi",
+  emoji:"🐍",
+
+  meaning:{
+    en:"Wise & mysterious",
+    ja:"賢く神秘的"
+  },
+
+  element:{
+    en:"Fire",
+    ja:"火"
+  },
+
+  yin:{
+    en:"Yin",
+    ja:"陰"
+  },
+
+  color:{
+    en:"Red",
+    ja:"赤"
+  },
+
+  number:"2, 8, 9",
+
+  traits:{
+    en:["Wise","Intuitive","Elegant","Strategic"],
+    ja:["知的","直感的","優雅","戦略的"]
+  },
+
+  description:{
+    en:"The Snake is associated with wisdom, intuition, elegance and strategic thinking.",
+    ja:"へびは、知恵、直感、優雅さ、戦略的な思考と結びつけられています。"
+  }
+},
+
+{
+  animal:"Horse",
+  ja:"うま",
+  kanji:"午",
+  reading:"Uma",
+  emoji:"🐎",
+
+  meaning:{
+    en:"Free & energetic",
+    ja:"自由でエネルギッシュ"
+  },
+
+  element:{
+    en:"Fire",
+    ja:"火"
+  },
+
+  yin:{
+    en:"Yang",
+    ja:"陽"
+  },
+
+  color:{
+    en:"Green",
+    ja:"緑"
+  },
+
+  number:"2, 3, 7",
+
+  traits:{
+    en:["Energetic","Free","Adventurous","Independent"],
+    ja:["活発","自由","冒険好き","独立心"]
+  },
+
+  description:{
+    en:"The Horse represents freedom, movement, enthusiasm and an adventurous spirit.",
+    ja:"うまは、自由、行動力、情熱、冒険心を象徴すると考えられています。"
+  }
+},
+
+{
+  animal:"Sheep",
+  ja:"ひつじ",
+  kanji:"未",
+  reading:"Hitsuji",
+  emoji:"🐐",
+
+  meaning:{
+    en:"Gentle & artistic",
+    ja:"優しく芸術的"
+  },
+
+  element:{
+    en:"Earth",
+    ja:"土"
+  },
+
+  yin:{
+    en:"Yin",
+    ja:"陰"
+  },
+
+  color:{
+    en:"Purple",
+    ja:"紫"
+  },
+
+  number:"2, 7, 8",
+
+  traits:{
+    en:["Creative","Gentle","Artistic","Compassionate"],
+    ja:["創造的","優しい","芸術的","思いやり"]
+  },
+
+  description:{
+    en:"The Sheep is traditionally associated with kindness, creativity, peace and artistic sensitivity.",
+    ja:"ひつじは、優しさ、創造性、平和、芸術的な感性と結びつけられています。"
+  }
+},
+
+{
+  animal:"Monkey",
+  ja:"さる",
+  kanji:"申",
+  reading:"Saru",
+  emoji:"🐒",
+
+  meaning:{
+    en:"Clever & playful",
+    ja:"賢く遊び心がある"
+  },
+
+  element:{
+    en:"Metal",
+    ja:"金"
+  },
+
+  yin:{
+    en:"Yang",
+    ja:"陽"
+  },
+
+  color:{
+    en:"White",
+    ja:"白"
+  },
+
+  number:"4, 9",
+
+  traits:{
+    en:["Clever","Playful","Inventive","Social"],
+    ja:["賢い","遊び心","発明的","社交的"]
+  },
+
+  description:{
+    en:"The Monkey symbolizes intelligence, humor, invention and adaptability.",
+    ja:"さるは、知性、ユーモア、発想力、適応力を象徴すると考えられています。"
+  }
+},
+
+{
+  animal:"Rooster",
+  ja:"とり",
+  kanji:"酉",
+  reading:"Tori",
+  emoji:"🐓",
+
+  meaning:{
+    en:"Confident & precise",
+    ja:"自信があり几帳面"
+  },
+
+  element:{
+    en:"Metal",
+    ja:"金"
+  },
+
+  yin:{
+    en:"Yin",
+    ja:"陰"
+  },
+
+  color:{
+    en:"Gold",
+    ja:"金色"
+  },
+
+  number:"5, 7",
+
+  traits:{
+    en:["Confident","Organized","Observant","Direct"],
+    ja:["自信","几帳面","観察力","率直"]
+  },
+
+  description:{
+    en:"The Rooster is traditionally connected with confidence, organization, observation and precision.",
+    ja:"とりは、自信、整理整頓、観察力、正確さと結びつけられています。"
+  }
+},
+
+{
+  animal:"Dog",
+  ja:"いぬ",
+  kanji:"戌",
+  reading:"Inu",
+  emoji:"🐕",
+
+  meaning:{
+    en:"Loyal & honest",
+    ja:"忠実で正直"
+  },
+
+  element:{
+    en:"Earth",
+    ja:"土"
+  },
+
+  yin:{
+    en:"Yang",
+    ja:"陽"
+  },
+
+  color:{
+    en:"Yellow",
+    ja:"黄色"
+  },
+
+  number:"3, 4, 9",
+
+  traits:{
+    en:["Loyal","Honest","Protective","Faithful"],
+    ja:["忠実","正直","保護的","誠実"]
+  },
+
+  description:{
+    en:"The Dog traditionally symbolizes loyalty, honesty, friendship and protection.",
+    ja:"いぬは、忠誠心、正直さ、友情、守る力を象徴するとされています。"
+  }
+},
+
+{
+  animal:"Boar",
+  ja:"いのしし",
+  kanji:"亥",
+  reading:"Inoshishi",
+  emoji:"🐗",
+
+  meaning:{
+    en:"Honest & determined",
+    ja:"正直で意志が強い"
+  },
+
+  element:{
+    en:"Water",
+    ja:"水"
+  },
+
+  yin:{
+    en:"Yin",
+    ja:"陰"
+  },
+
+  color:{
+    en:"Black",
+    ja:"黒"
+  },
+
+  number:"2, 5, 8",
+
+  traits:{
+    en:["Honest","Determined","Generous","Sincere"],
+    ja:["正直","意志が強い","寛大","誠実"]
+  },
+
+  description:{
+    en:"The Boar represents sincerity, determination, generosity and strong will.",
+    ja:"いのししは、誠実さ、意志の強さ、寛大さ、強い心を象徴すると考えられています。"
+  }
+}
+
+];
+
+
+/* =========================================================
+   LANGUAGE DATA
+========================================================= */
+
+let language = "en";
+
+const UI = {
+
+  en:{
+    logo:"JAPANESE ZODIAC",
+    title:"Eto • Jūnishi",
+    subtitle:"干支 • 十二支 — Discover your Japanese zodiac",
+
+    yearLabel:"Enter your birth year",
+    yearHint:"For example: 2003",
+    placeholder:"2003",
+    button:"Discover My Eto",
+
+    japanese:"Japanese",
+    position:"Position",
+    element:"Element",
+    yinYang:"Yin / Yang",
+    luckyColor:"Lucky Color",
+    luckyNumber:"Lucky Number",
+
+    personality:"Personality",
+    about:"About Your Sign",
+
+    zodiacTitle:"十二支 • The 12 Jūnishi",
+    zodiacSub:"Tap an animal to explore its meaning.",
+
+    factTitle:"Did you know?",
+
+    fact:`
+      The Japanese zodiac is called
+      <b>Jūnishi (十二支)</b>, meaning
+      "Twelve Earthly Branches."
+      <br><br>
+      Each year is associated with one of
+      12 animals in a repeating cycle.
+      <br><br>
+      The broader Japanese term
+      <b>Eto (干支)</b> can refer to the
+      traditional 60-year cycle combining
+      the 12 animals with the 5 elements.
+    `,
+
+    footer:"Eto • Jūnishi<br>Japanese Zodiac App",
+
+    alert:"Please enter a valid birth year.",
+
+    yearText:"Birth year:"
+  },
+
+  ja:{
+    logo:"日本の十二支",
+    title:"干支・十二支",
+    subtitle:"あなたの日本の干支を見つけましょう",
+
+    yearLabel:"生まれた年を入力してください",
+    yearHint:"例：2003",
+    placeholder:"2003",
+    button:"自分の干支を見る",
+
+    japanese:"日本語",
+    position:"十二支の順番",
+    element:"五行",
+    yinYang:"陰・陽",
+    luckyColor:"ラッキーカラー",
+    luckyNumber:"ラッキーナンバー",
+
+    personality:"性格",
+    about:"あなたの干支について",
+
+    zodiacTitle:"十二支",
+    zodiacSub:"動物をタップして詳しく見る",
+
+    factTitle:"豆知識",
+
+    fact:`
+      日本の十二支は
+      <b>十二支（じゅうにし）</b>と呼ばれ、
+      「12の地支」という意味があります。
+      <br><br>
+      12種類の動物が順番に繰り返されます。
+      <br><br>
+      <b>干支（えと）</b>という言葉は、
+      12の動物と五行を組み合わせた
+      60年周期を指すこともあります。
+    `,
+
+    footer:"干支・十二支<br>日本の十二支アプリ",
+
+    alert:"正しい生まれ年を入力してください。",
+
+    yearText:"生まれ年："
+  }
+
+};
+
+
+/* =========================================================
+   BUILD ZODIAC GRID
+========================================================= */
+
+const grid = document.getElementById("zodiacGrid");
+
+zodiac.forEach((z,index)=>{
+
+  const div = document.createElement("div");
+
+  div.className = "zodiac";
+
+  div.innerHTML = `
+    <div class="zEmoji">${z.emoji}</div>
+    <div class="zName">${z.animal}</div>
+    <div class="zJapanese">${z.kanji} ${z.ja}</div>
+    <div class="zReading">${z.reading}</div>
+  `;
+
+  div.onclick = () => {
+    showAnimal(index);
+  };
+
+  grid.appendChild(div);
+
+});
+
+
+/* =========================================================
+   CALCULATE ZODIAC
+========================================================= */
+
+function calculate(){
+
+  const input = document.getElementById("year");
+
+  const year = parseInt(input.value,10);
+
+  if(!year || year < 1 || year > 9999){
+
+    alert(UI[language].alert);
+
+    return;
+  }
+
+  /*
+    Traditional 12-year cycle:
+    4 = Rat
+  */
+
+  const index = ((year - 4) % 12 + 12) % 12;
+
+  showAnimal(index,year);
+
+  document.getElementById("result").scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+
+}
+
+
+/* =========================================================
+   SHOW ANIMAL
+========================================================= */
+
+function showAnimal(index,year=null){
+
+  const z = zodiac[index];
+
+  document.getElementById("result").style.display = "block";
+
+  document.getElementById("heroEmoji").textContent =
+    z.emoji;
+
+  document.getElementById("heroKanji").textContent =
+    z.kanji;
+
+  document.getElementById("heroName").textContent =
+    language === "en"
+      ? z.animal
+      : `${z.ja}（${z.animal}）`;
+
+  document.getElementById("heroMeaning").textContent =
+    z.meaning[language];
+
+  document.getElementById("birthYear").textContent =
+    year
+      ? `${UI[language].yearText} ${year}`
+      : "";
+
+  document.getElementById("jpName").textContent =
+    `${z.kanji} ${z.ja} • ${z.reading}`;
+
+  document.getElementById("position").textContent =
+    `${index + 1} / 12`;
+
+  document.getElementById("element").textContent =
+    z.element[language];
+
+  document.getElementById("yinYang").textContent =
+    z.yin[language];
+
+  document.getElementById("luckyColor").textContent =
+    z.color[language];
+
+  document.getElementById("luckyNumber").textContent =
+    z.number;
+
+  document.getElementById("traits").innerHTML =
+    z.traits[language]
+      .map(t => `<span class="trait">${t}</span>`)
+      .join("");
+
+  document.getElementById("description").textContent =
+    z.description[language];
+
+  document.querySelectorAll(".zodiac")
+    .forEach((el,i)=>{
+      el.classList.toggle(
+        "active",
+        i === index
+      );
+    });
+
+}
+
+
+/* =========================================================
+   LANGUAGE SWITCH
+========================================================= */
+
+function setLanguage(lang){
+
+  language = lang;
+
+  document.documentElement.lang =
+    lang === "ja" ? "ja" : "en";
+
+  const t = UI[lang];
+
+  document.getElementById("logo").textContent =
+    t.logo;
+
+  document.getElementById("title").textContent =
+    t.title;
+
+  document.getElementById("subtitle").textContent =
+    t.subtitle;
+
+  document.getElementById("yearLabel").textContent =
+    t.yearLabel;
+
+  document.getElementById("yearHint").textContent =
+    t.yearHint;
+
+  document.getElementById("year").placeholder =
+    t.placeholder;
+
+  document.getElementById("calculateBtn").textContent =
+    t.button;
+
+  document.getElementById("labelJapanese").textContent =
+    t.japanese;
+
+  document.getElementById("labelPosition").textContent =
+    t.position;
+
+  document.getElementById("labelElement").textContent =
+    t.element;
+
+  document.getElementById("labelYinYang").textContent =
+    t.yinYang;
+
+  document.getElementById("labelLuckyColor").textContent =
+    t.luckyColor;
+
+  document.getElementById("labelLuckyNumber").textContent =
+    t.luckyNumber;
+
+  document.getElementById("personalityTitle").textContent =
+    t.personality;
+
+  document.getElementById("aboutTitle").textContent =
+    t.about;
+
+  document.getElementById("zodiacTitle").textContent =
+    t.zodiacTitle;
+
+  document.getElementById("zodiacSub").textContent =
+    t.zodiacSub;
+
+  document.getElementById("factTitle").textContent =
+    t.factTitle;
+
+  document.getElementById("factText").innerHTML =
+    t.fact;
+
+  document.getElementById("footer").innerHTML =
+    t.footer;
+
+  document.getElementById("enBtn")
+    .classList.toggle(
+      "active",
+      lang === "en"
+    );
+
+  document.getElementById("jaBtn")
+    .classList.toggle(
+      "active",
+      lang === "ja"
+    );
+
+
+  /*
+    Re-render currently selected animal
+  */
+
+  const active =
+    document.querySelector(".zodiac.active");
+
+  if(active){
+
+    const index =
+      Array.from(
+        document.querySelectorAll(".zodiac")
+      ).indexOf(active);
+
+    if(index >= 0){
+
+      const currentYear =
+        parseInt(
+          document.getElementById("year").value,
+          10
+        );
+
+      showAnimal(
+        index,
+        currentYear || null
+      );
+
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   ENTER KEY
+========================================================= */
+
+document.getElementById("year")
+  .addEventListener("keydown",function(e){
+
+    if(e.key === "Enter"){
+      calculate();
+    }
+
+  });
+
+</script>
+
+</body>
+</html>
+
+इस version में सिर्फ Eto • Jūnishi है — कोई TalkQR, Firebase, QR generator, wishlist, app grid, modal या extra code नहीं है।
+
+एक छोटी बात: यह 12-year animal cycle के हिसाब से result देता है। उदाहरण के लिए 2003 → Sheep (未) नहीं Dragon; अगर आप चाहें तो मैं अगला version Japanese Eto को और अधिक authentic बनाकर (Japanese New Year boundary + 60-year Eto/五行) भी बना सकता हूँ।
